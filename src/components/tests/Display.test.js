@@ -1,10 +1,52 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Display from "../Display";
+import mockFetchShow from "../../api/fetchShow";
+jest.mock("../../api/fetchShow");
 
+const testShow = {
+    //add in approprate test data structure here.
+    name: "Stranger Things",
+    summary: "This is the summary text",
+    seasons: [
+        {
+            id: 2344,
+            name: "Season 1",
+            episodes: [
+                {id: 3463, url: ""}
+            ]
+        },
+        {
+            id: 2233,
+            name: "Season 2",
+            episodes: [
+                {id: 3434, url: ""}
+            ]
+        }
+    ]
+}
 
 test("renders without errors", () => {
+    render(<Display />);
+});
+
+test("when fetch button is pressed the Show component will display", async () => {
+    //arrange:
+    render(<Display />);
+
+    //act:
+    mockFetchShow.mockResolvedValueOnce(testShow);
+
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+
+    const showContainer = await screen.findByTestId("show-container");
     
+    //assert:
+    expect(button).not.toBeInTheDocument();
+    expect(showContainer).toBeInTheDocument();
+
 });
 
 
