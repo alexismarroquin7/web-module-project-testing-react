@@ -27,7 +27,14 @@ test("renders without error", () => {
 });
 
 test("renders the summury test passed as prop", ()=>{
-    
+    //arrange:
+    render(<Episode episode={testEpisodeWithoutImage}/>);
+
+    //act:
+    const summary = screen.queryByText(/this is the summary/i);
+
+    //assert:
+    expect(summary).toBeInTheDocument();
 });
 
 test("renders default image when image is not defined", ()=>{
