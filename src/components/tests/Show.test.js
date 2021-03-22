@@ -8,11 +8,22 @@ const testShow = {
     //add in approprate test data structure here.
     name: "Stranger Things",
     summary: "This is the summary text",
-    seasons: [{
+    seasons: [
+        {
             id: 2344,
             name: "Season 1",
-            episodes: [{id: 3463, url: ""}]
-        }]
+            episodes: [
+                {id: 3463, url: ""}
+            ]
+        },
+        {
+            id: 2233,
+            name: "Season 2",
+            episodes: [
+                {id: 3434, url: ""}
+            ]
+        }
+    ]
 }
 
 test('renders testShow and no selected Season without errors', ()=>{
@@ -39,17 +50,25 @@ test('renders same number of options seasons are passed in', () => {
     const options = screen.queryAllByTestId(/season-option/i);
 
     //assert:
-    expect(options).toHaveLength(1);
+    expect(options).toHaveLength(2);
 
 });
 
 test('handleSelect is called when an season is selected', () => {
     //arrange:
-    render();
+    const mockHandleSelect = jest.fn();
+    render(<Show show={testShow} selectedSeason={0} handleSelect={mockHandleSelect} />);
 
-    //act:
+    // //act:
+    const select = screen.getByRole("combobox");
+
+    userEvent.selectOptions(select, [
+        screen.getByText('Season 1')
+    ]);
 
     //assert:
+    expect(mockHandleSelect).toBeCalledTimes(1);
+
 });
 
 test('component renders when no seasons are selected and when rerenders with a season passed in', () => {
