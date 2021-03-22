@@ -49,6 +49,22 @@ test("when fetch button is pressed the Show component will display", async () =>
 
 });
 
+test("when the fetch button is pressed, the amount of select options rendered is equal to the amount of seasons", async () => {
+    //arrange:
+    render(<Display />);
+
+    //act:
+    mockFetchShow.mockResolvedValueOnce(testShow);
+
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+
+    const select = await screen.findByRole("combobox");
+
+    //assert:
+    expect(select.children).toHaveLength(3);
+
+});
 
 ///Tasks:
 //1. Add in nessisary imports and values to establish the testing suite.
