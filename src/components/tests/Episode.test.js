@@ -14,10 +14,16 @@ const testEpisode = {
 
 const testEpisodeWithoutImage = {
     //Add in approprate test data structure here.
+    id: 0,
+    name: "Chapter 5: Title", 
+    season: 2, 
+    number: 3, 
+    summary: "this is the summary", 
+    runtime: 60
 }
 
 test("renders without error", () => {
-
+    render(<Episode episode={testEpisodeWithoutImage}/>);
 });
 
 test("renders the summury test passed as prop", ()=>{
