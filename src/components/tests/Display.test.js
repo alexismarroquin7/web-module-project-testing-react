@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Display from "../Display";
 import mockFetchShow from "../../api/fetchShow";
@@ -63,6 +63,24 @@ test("when the fetch button is pressed, the amount of select options rendered is
 
     //assert:
     expect(select.children).toHaveLength(3);
+
+});
+
+test("when the fetch button is press, the displayFunc function is called", async () => {
+    //arrange:
+    const mockDisplayFunc = jest.fn();
+    render(<Display displayFunc={mockDisplayFunc}/>);
+
+    //act:
+    mockFetchShow.mockResolvedValueOnce(testShow);
+
+    const button = screen.getByRole("button");
+    userEvent.click(button);
+
+    //assert:
+    await waitFor(() => {
+        expect(mockDisplayFunc).toBeCalledTimes(1);
+    })
 
 });
 
