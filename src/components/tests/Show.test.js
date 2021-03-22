@@ -16,7 +16,7 @@ const testShow = {
 }
 
 test('renders testShow and no selected Season without errors', ()=>{
-    render(<Show show={testShow} selectedSeason={0}/>);
+    render(<Show show={testShow} selectedSeason={"none"}/>);
 });
 
 test('renders Loading component when prop show is null', () => {
@@ -44,6 +44,12 @@ test('renders same number of options seasons are passed in', () => {
 });
 
 test('handleSelect is called when an season is selected', () => {
+    //arrange:
+    render();
+
+    //act:
+
+    //assert:
 });
 
 test('component renders when no seasons are selected and when rerenders with a season passed in', () => {
